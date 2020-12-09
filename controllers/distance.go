@@ -1,9 +1,9 @@
 package controllers
 
 import (
-	"encoding/json"
 	"fmt"
 	"net/http"
+	"strconv"
 	"time"
 
 	"github.com/ismar/dsa/distrybuted_systems_api/model"
@@ -18,15 +18,17 @@ type MeasuredValues struct{}
 func (mv MeasuredValues) Save(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	var measuredData model.Values
 
-	err := json.NewDecoder(r.Body).Decode(&measuredData)
+	queryValues := r.URL.Query()
 	measuredData.Time = time.Now().Format("Jan 2 2006 15:04:05")
+	distance, _ := strconv.ParseFloat(queryValues.Get("distance"), 64)
 
-	if err != nil {
-		utils.WriteJSON(w, err, http.StatusBadRequest)
-		return
-	}
+	measuredData.Distance = distance
+	// if err != nil {
+	// 	utils.WriteJSON(w, err, http.StatusBadRequest)
+	// 	return
+	// }
 
-	err = measuredData.WriteToDataBase()
+	err := measuredData.WriteToDataBase()
 
 	if err != nil {
 		utils.WriteJSON(w, err, http.StatusInternalServerError)

@@ -9,9 +9,9 @@ import (
 
 // Values ...
 type Values struct {
-	ID       int    `db:"id" json:"id"`
-	Distance int    `db:"distance" json:"distance"`
-	Time     string `db:"time" json:"time"`
+	ID       int     `db:"id" json:"id"`
+	Distance float64 `db:"distance" json:"distance"`
+	Time     string  `db:"time" json:"time"`
 }
 
 // WriteToDataBase ...
