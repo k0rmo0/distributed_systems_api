@@ -23,10 +23,6 @@ func (mv MeasuredValues) Save(w http.ResponseWriter, r *http.Request, _ httprout
 	distance, _ := strconv.ParseFloat(queryValues.Get("distance"), 64)
 
 	measuredData.Distance = distance
-	// if err != nil {
-	// 	utils.WriteJSON(w, err, http.StatusBadRequest)
-	// 	return
-	// }
 
 	err := measuredData.WriteToDataBase()
 

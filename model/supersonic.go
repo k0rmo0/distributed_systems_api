@@ -39,7 +39,7 @@ func (val *Values) WriteToDataBase() error {
 func ListValues() ([]Values, error) {
 	db := utils.SQLAcc.GetSQLDB()
 	var rows []Values
-	query := "SELECT * FROM distances"
+	query := "SELECT * FROM distances ORDER BY id DESC"
 
 	err := db.Select(&rows, query)
 
